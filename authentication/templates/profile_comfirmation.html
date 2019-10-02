@@ -1,0 +1,12 @@
+<form action="{% url 'authentication:profile_comfirm'%}" method="post">
+  {% csrf_token %}
+   <label for="id_provider">Provider: </label>
+   <input id="id_provider" type="text" name="provider" value="{{jwt_token.provider}}">
+   <label for="id_id">id: </label>
+   <input id="id_id" type="text" name="id" value="{{jwt_token.id}}">
+   <label for="id_fullName">full: </label>
+   <input id="id_fullName" type="text" name="fullName" value="{{jwt_token.fullName}}">
+   <label for="id_image">ima: </label>
+   <input id="id_image" type="text" name="image" value="{{jwt_token.image}}">
+   <input type="submit" value="OK">
+</form>
