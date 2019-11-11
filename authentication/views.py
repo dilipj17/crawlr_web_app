@@ -5,7 +5,7 @@ from crawlr_web import settings
 import json
 
 def logIn(request):
-     return HttpResponse('<a href="https://crawlr-api.herokuapp.com/auth/linkedin">login</a>')
+    return HttpResponse('<a href="https://crawlr-api.herokuapp.com/auth/linkedin">login</a>')
 
 def linkedInTokenHandle(request):
     code = request.GET.get('code')
