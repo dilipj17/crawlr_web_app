@@ -5,7 +5,10 @@ from crawlr_web import settings
 import json
 
 def logIn(request):
-    return HttpResponse('<a href="https://crawlr-api.herokuapp.com/auth/linkedin">login</a>')
+    if 'jwt_token' in request.session:
+        return HttpResponse('session already set')
+    else:
+        return HttpResponse('<a href="https://crawlr-api.herokuapp.com/auth/linkedin">login</a>')
 
 def linkedInTokenHandle(request):
     code = request.GET.get('code')
@@ -16,6 +19,9 @@ def linkedInTokenHandle(request):
         jwt_token = responce.json()
         if 'JWT' in jwt_token.keys():
             token = jwt_token['JWT']
+            UserID = jwt_token['UserID']
+            request.session['jwt_token'] = token
+            request.session['user_id'] = UserID
             headers = {'content-type': 'application/json','authorization':token}
             url = settings.API_URL+'/auth/test'
             responce = re.post(url,headers = headers)
@@ -23,8 +29,7 @@ def linkedInTokenHandle(request):
         else:
             return render(request,'profile_comfirmation.html',jwt_token)
     return redirect('/auth/login')
-    # jwt_token = {'provider':'sfs','id':'1','fullName':'dilip','image':'as'}
-    # return render(request,'profile_comfirmation.html',jwt_token)
+
 
 def profileComfirm(request):
     if request.method == 'POST':
@@ -39,6 +44,9 @@ def profileComfirm(request):
             jwt_token = responce.json()
             if 'JWT' in jwt_token.keys():
                 token = jwt_token['JWT']
+                UserID = jwt_token['UserID']
+                request.session['jwt_token'] = token
+                request.session['user_id'] = UserID
                 headers = {'content-type': 'application/json','authorization':token}
                 url = settings.API_URL+'/auth/test'
                 responce = re.post(url,headers = headers)
@@ -46,3 +54,4 @@ def profileComfirm(request):
             else:
                 return Http404('something went wrong')
         return redirect('auth/login')
+    return Http404('something went wrong')
