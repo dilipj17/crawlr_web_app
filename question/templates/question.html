@@ -7,18 +7,16 @@
   </head>
   <body>
     <div class="infinite-container">
-      {% for number in numbers %}
-        <div class="infinite-item">{{ number }}</div>
-      {% endfor %}
+      {%for data in question%}
+        <div class="infinite-item">{{ data }}</div>
+      {%endfor%}
     </div>
-
     <div class="loading" style="display: none;">
       Loading...
     </div>
-
-    {% if numbers.has_next %}
-      <a class="infinite-more-link" href="?page={{ numbers.next_page_number }}">More</a>
-    {% endif %}
+    {%if next%}
+      <a class="infinite-more-link" href="?page={{ pageNo }}">More</a>
+    {%endif%}
 <!-- order should be same otherwise it will show some error -->
     <script src="{%static 'js/jquery-3.1.1.min.js'%}" charset="utf-8"></script>
     <script src="{%static 'js/jquery.waypoints.min.js'%}" charset="utf-8"></script>
