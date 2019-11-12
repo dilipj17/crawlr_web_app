@@ -35,7 +35,7 @@ def linkedInTokenHandle(request):
             responce = re.post(url,headers = headers)
             return HttpResponse(responce.status_code)
         else:
-            return render(request,'profile_comfirmation.html',jwt_token)
+            return render(request,'profile_comfirmation.html',{'jwt_token':jwt_token})
     return redirect('/auth/login')
 
 
@@ -47,7 +47,8 @@ def profileComfirm(request):
         image = request.POST.get('image')
         data = {'provider':provider,'id':id,'fullName':fullName,'image':image}
         headers = {'content-type': 'application/json'}
-        responce = re.post(settings.API_URL+'/auth/comfirm',data=json.dumps(data),headers=headers)
+        responce = re.post(settings.API_URL+'/auth/confirm',data=json.dumps(data),headers = headers)
+        print(responce.content)
         if responce.status_code == re.codes.ok:
             jwt_token = responce.json()
             if 'JWT' in jwt_token.keys():
@@ -63,5 +64,5 @@ def profileComfirm(request):
                 return Http404('something went wrong')
         if responce.status_code == 401:
             return render(request,'profile_comfirmation.html',{'jwt_token':data,'error':'Please give Valid Data'})
-        return redirect('auth/login')
+        return redirect('/auth/login')
     return Http404('something went wrong')
