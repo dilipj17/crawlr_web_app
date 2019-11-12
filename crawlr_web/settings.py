@@ -27,10 +27,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authentication',
+    'question',
 
 ]
 
-SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies" 
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
