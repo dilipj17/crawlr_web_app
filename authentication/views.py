@@ -61,8 +61,8 @@ def profileComfirm(request):
                 responce = re.post(url,headers = headers)
                 return HttpResponse(responce.status_code)
             else:
-                return Http404('something went wrong')
+                raise Http404('something went wrong')
         if responce.status_code == 401:
             return render(request,'profile_comfirmation.html',{'jwt_token':data,'error':'Please give Valid Data'})
         return redirect('/auth/login')
-    return Http404('something went wrong')
+    raise Http404('something went wrong try to login again')
