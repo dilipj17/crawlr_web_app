@@ -6,7 +6,7 @@ import json
 
 def logIn(request):
     if 'jwt_token' in request.session:
-        return HttpResponse('home page')
+        return redirect('homepage')
     else:
         return HttpResponse('<a href="https://crawlr-api.herokuapp.com/auth/linkedin">login</a>')
 
@@ -16,7 +16,7 @@ def logOut(request):
         del request.session['UserID']
     except KeyError:
         pass
-    return HttpResponse("<h1>dataflair<br>Session Data cleared</h1>")
+    return redirect('auth:login')
 
 def linkedInTokenHandle(request):
     code = request.GET.get('code')
@@ -33,7 +33,7 @@ def linkedInTokenHandle(request):
             headers = {'content-type': 'application/json','authorization':token}
             url = settings.API_URL+'/auth/test'
             responce = re.post(url,headers = headers)
-            return HttpResponse(responce.status_code)
+            return redirect('homepage')
         else:
             return render(request,'profile_comfirmation.html',{'jwt_token':jwt_token})
     return redirect('auth:login')
@@ -59,7 +59,7 @@ def profileComfirm(request):
                 headers = {'content-type': 'application/json','authorization':token}
                 url = settings.API_URL+'/auth/test'
                 responce = re.post(url,headers = headers)
-                return HttpResponse(responce.status_code)
+                return redirect('homepage')
             else:
                 raise Http404('something went wrong')
         if responce.status_code == 401:
