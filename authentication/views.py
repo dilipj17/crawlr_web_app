@@ -36,7 +36,7 @@ def linkedInTokenHandle(request):
             return HttpResponse(responce.status_code)
         else:
             return render(request,'profile_comfirmation.html',{'jwt_token':jwt_token})
-    return redirect('/auth/login')
+    return redirect('auth:login')
 
 
 def profileComfirm(request):
@@ -64,5 +64,5 @@ def profileComfirm(request):
                 raise Http404('something went wrong')
         if responce.status_code == 401:
             return render(request,'profile_comfirmation.html',{'jwt_token':data,'error':'Please give Valid Data'})
-        return redirect('/auth/login')
+        return redirect('auth:login')
     raise Http404('something went wrong try to login again')
