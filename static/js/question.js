@@ -30,7 +30,7 @@ function postQuestion(){
         $('#mesaage').html('Something went wrong please try again later');
       }
     }
+    location.reload(true);
+    $('#closepopque').click()
   });
-  location.reload(true);
-  $('#closepopque').click()
 }
