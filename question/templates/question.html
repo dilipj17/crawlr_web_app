@@ -1,11 +1,8 @@
+{%extends 'base.html'%}
 {%load static%}
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>question</title>
-  </head>
-  <body>
+
+{%block title%}Home Page{%endblock%}
+{%block content%}
     <div class="infinite-container">
       {%for data in question%}
         <div class="infinite-item">{{ data }}</div>
@@ -17,20 +14,19 @@
     {%if next%}
       <a class="infinite-more-link" href="?page={{ pageNo }}"></a>
     {%endif%}
-<!-- order should be same otherwise it will show some error -->
-    <script src="{%static 'js/jquery-3.1.1.min.js'%}" charset="utf-8"></script>
-    <script src="{%static 'js/jquery.waypoints.min.js'%}" charset="utf-8"></script>
-    <script src="{%static 'js/infinite.min.js'%}" charset="utf-8"></script>
-    <script>
-      var infinite = new Waypoint.Infinite({
-        element: $('.infinite-container')[0],
-        onBeforePageLoad: function () {
-          $('.loading').show();
-        },
-        onAfterPageLoad: function ($items) {
-          $('.loading').hide();
-        }
-      });
-    </script>
-  </body>
-</html>
+{%endblock%}
+
+
+{%block script%}
+  <script>
+    var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0],
+      onBeforePageLoad: function () {
+        $('.loading').show();
+      },
+      onAfterPageLoad: function ($items) {
+        $('.loading').hide();
+      }
+    });
+  </script>
+{%endblock%}
