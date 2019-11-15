@@ -3,6 +3,8 @@ from crawlr_web.decorators import login_required
 from django.http import HttpResponse,Http404
 import requests as re
 from crawlr_web import settings
+import json
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required
 def QuestionList(request):
@@ -33,5 +35,21 @@ def QuestionList(request):
             next = True
         else:
             next = False
-        return render(request, 'question.html', {'question': data,'pageNo':pageNo,'next':next})
+        return render(request, 'question.html', {'question': data,'pageNo':pageNo,'next':next,'user':request.session.get('UserID')})
     return Http404('some error occurred')
+    # return render(request,'question.html',{'question':'spdofsdopf','pageNo':0,'next':False})
+
+@csrf_exempt
+def QuestionPost(request):
+    if request.is_ajax():
+        question = request.POST['question']
+        try:
+            responce = re.post(settings.API_URL+'/question',data={'question':question},headers={'authorization':request.session['jwt_token']})
+        except error as e:
+            print(e)
+            return HttpResponse(json.dumps({'status':500}))
+        if responce.status_code == 200:
+            return HttpResponse(json.dumps({'status':200}))
+        else:
+            return HttpResponse(json.dumps({'status':500}))
+    return HttpResponse(json.dumps({'status':500}))
