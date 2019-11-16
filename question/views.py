@@ -63,6 +63,7 @@ def DeleteQuestion(request,question):
 def ReplyPost(request, question):
     pageNo = request.GET.get('page')
     question_text = request.GET.get('question')
+    asker = request.GET.get('asker')
     if pageNo == None:
         pageNo = 1
     else:
@@ -84,7 +85,7 @@ def ReplyPost(request, question):
             next = True
         else:
             next = False
-        return render(request, 'reply.html', {'question': question_text,'question_id':question, 'reply': data, 'pageNo': pageNo, 'next': next, 'user': request.session['user_id']})
+        return render(request, 'reply.html', {'asker':asker,'question': question_text,'question_id':question, 'reply': data, 'pageNo': pageNo, 'next': next, 'user': request.session['user_id']})
 
     if responce.status_code == 401:
         return redirect('auth:login')
@@ -150,6 +151,28 @@ def ApiReplyDelete(request):
             return HttpResponse(json.dumps({'status': 500}))
         if responce.status_code == 200:
             messages.success(request, 'your reply successfully deleted!', extra_tags='alert alert-info')
+            return HttpResponse(json.dumps({'status': 200}))
+        else:
+            messages.error(request, 'some error occurred',extra_tags='alert alert-danger')
+            return HttpResponse(json.dumps({'status': 500}))
+    messages.error(request, 'some error occurred',extra_tags='alert alert-danger')
+    return HttpResponse(json.dumps({'status': 500}))
+
+@login_required
+@csrf_exempt
+def ApiReplyVerify(request):
+    if request.is_ajax():
+        question = request.POST['question']
+        id = request.POST['id']
+        params = {'QuestionID':question,'ReplyID':id}
+        try:
+            responce = re.post(settings.API_URL + '/reply/verify',data=params,headers={'authorization': request.session['jwt_token']})
+        except Exception as e:
+            print(e)
+            messages.error(request, 'some error occurred',extra_tags='alert alert-danger')
+            return HttpResponse(json.dumps({'status': 500}))
+        if responce.status_code == 200:
+            messages.success(request, 'your reply successfully verified!', extra_tags='alert alert-info')
             return HttpResponse(json.dumps({'status': 200}))
         else:
             messages.error(request, 'some error occurred',extra_tags='alert alert-danger')

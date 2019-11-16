@@ -45,7 +45,7 @@
   <div class="row">
     <div class="infinite-container">
       {%for data in question%}
-        <div class="infinite-item" data-section='ques'><a href="{%url 'ques:reply' data.id%}?question={{data.question}}">{{ data }}</a></div>
+        <div class="infinite-item" data-section='ques'><a href="{%url 'ques:reply' data.id%}?question={{data.question}}&asker={{data.askerID}}">{{ data }}</a></div>
         {%if user == data.askerID%}
           <a href="{%url 'ques:delete_ques' data.id%}">delete</a>
         {%endif%}

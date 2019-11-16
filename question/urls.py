@@ -6,6 +6,7 @@ urlpatterns = [
     path('api/post',views.QuestionPost,name="post_api"),
     path('api/postreply',views.ApiReplyPost,name="reply_post_api"),
     path('api/deletereply',views.ApiReplyDelete,name="reply_delete_api"),
+    path('api/verifyreply',views.ApiReplyVerify,name="reply_verify_api"),
     re_path('reply/(?P<question>\w+)/',views.ReplyPost,name="reply"),
     re_path('delete/(?P<question>\w+)/',views.DeleteQuestion,name="delete_ques"),
 ]

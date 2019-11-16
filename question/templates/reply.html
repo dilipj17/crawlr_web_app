@@ -7,11 +7,11 @@
 <div class="row">
   <div class="col-sm-12">
     {% if messages %}
-      <ul class="info">
-        {% for message in messages %}
-          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    <ul class="info">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
         {% endfor %}
-      </ul>
+    </ul>
     {% endif %}
     <div class="alert" id="mesaage" style="display:None"></div>
   </div>
@@ -26,22 +26,26 @@
 {{question}}
 <div class="row">
   <input type="hidden" value="{%url 'ques:reply_delete_api'%}" data-csrf={{csrf_token}} id="reply_delete_url">
+  <input type="hidden" value="{%url 'ques:reply_verify_api'%}" data-csrf={{csrf_token}} id="reply_verify_url">
   <div class="infinite-container">
     {%for data in reply%}
-      <div class="infinite-item" data-section='ques'>{{ data }}</div>
-      {%if user == data.UserID%}
-        <a class="delete-reply" data-reply='{{data.id}}'>delete</a>
-      {%endif%}
+    <div class="infinite-item" data-section='ques'>{{ data }}</div>
+    {%if user == data.UserID%}
+    <a class="delete-reply" data-reply='{{data.id}}'>delete</a>
+    {%endif%}
+    {%if user == asker%}
+    <a class="verify-reply" data-reply='{{data.id}}'>verify</a>
+    {%endif%}
     {%endfor%}
   </div>
   <div class="loading" style="display: none;">
     Loading...
   </div>
   {%if next%}
-    <a class="infinite-more-link" href="?page={{ pageNo }}"></a>
+  <a class="infinite-more-link" href="?page={{ pageNo }}"></a>
   {%endif%}
 </div>
 {%endblock%}
 {%block script%}
-  <script src="{%static 'js/question.js'%}" charset="utf-8"></script>
+<script src="{%static 'js/question.js'%}" charset="utf-8"></script>
 {%endblock%}
