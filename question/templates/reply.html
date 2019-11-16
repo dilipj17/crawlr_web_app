@@ -25,9 +25,13 @@
 <!-- Reply -->
 {{question}}
 <div class="row">
+  <input type="hidden" value="{%url 'ques:reply_delete_api'%}" data-csrf={{csrf_token}} id="reply_delete_url">
   <div class="infinite-container">
     {%for data in reply%}
-      <div class="infinite-item" data-section='ques'><a href="{%url 'ques:reply' data.id%}">{{ data }}</a></div>
+      <div class="infinite-item" data-section='ques'>{{ data }}</div>
+      {%if user == data.UserID%}
+        <a class="delete-reply" data-reply='{{data.id}}'>delete</a>
+      {%endif%}
     {%endfor%}
   </div>
   <div class="loading" style="display: none;">

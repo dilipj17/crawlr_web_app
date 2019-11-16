@@ -97,6 +97,9 @@ def ReplyPost(request, question):
 def QuestionPost(request):
     if request.is_ajax():
         question = request.POST['question']
+        if len(question) == 0:
+            messages.error(request, 'your question area is empty',extra_tags='alert alert-danger')
+            return HttpResponse(json.dumps({'status': 500}))
         try:
             responce = re.post(settings.API_URL + '/question', data={'question': question}, headers={'authorization': request.session['jwt_token']})
         except Exception as e:
@@ -126,6 +129,27 @@ def ApiReplyPost(request):
             return HttpResponse(json.dumps({'status': 500}))
         if responce.status_code == 200:
             messages.success(request, 'your reply successfully added!', extra_tags='alert alert-info')
+            return HttpResponse(json.dumps({'status': 200}))
+        else:
+            messages.error(request, 'some error occurred',extra_tags='alert alert-danger')
+            return HttpResponse(json.dumps({'status': 500}))
+    messages.error(request, 'some error occurred',extra_tags='alert alert-danger')
+    return HttpResponse(json.dumps({'status': 500}))
+
+@login_required
+@csrf_exempt
+def ApiReplyDelete(request):
+    if request.is_ajax():
+        question = request.POST['question']
+        id = request.POST['id']
+        try:
+            responce = re.delete(settings.API_URL + '/reply?QuestionID='+question+'&ReplyID='+id, headers={'authorization': request.session['jwt_token']})
+        except Exception as e:
+            print(e)
+            messages.error(request, 'some error occurred',extra_tags='alert alert-danger')
+            return HttpResponse(json.dumps({'status': 500}))
+        if responce.status_code == 200:
+            messages.success(request, 'your reply successfully deleted!', extra_tags='alert alert-info')
             return HttpResponse(json.dumps({'status': 200}))
         else:
             messages.error(request, 'some error occurred',extra_tags='alert alert-danger')

@@ -59,3 +59,33 @@ function postReply() {
     }
   });
 }
+
+$(document).ready(function() {
+  $(document).on('click', '.delete-reply', function(event) {
+    event.preventDefault();
+    var id = $(this).data('reply');
+    var $data = $('#reply_delete_url');
+    $.ajax({
+      url: $data.val(),
+      type: "POST",
+      data: {
+        'csrfmiddlewaretoken' : $data.data('csrf'),
+        'question' : $('#questionid').val(),
+        'id' : id
+      },
+      success: function(data){
+        responce = JSON.parse(data);
+        if (responce.status == 200) {
+          $('#mesaage').css('display', 'block');
+          $('#mesaage').addClass('alert-info');
+          $('#mesaage').html('your reply successfully deleted !');
+        } else {
+          $('#mesaage').css('display', 'block');
+          $('#mesaage').addClass('alert-danger');
+          $('#mesaage').html('Something went wrong please try again later');
+        }
+        location.reload(true);
+      }
+    });
+  });
+});
