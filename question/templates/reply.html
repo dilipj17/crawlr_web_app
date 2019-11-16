@@ -17,7 +17,11 @@
   </div>
 </div>
 
-
+<div class="row">
+  <input type="text" name="reply" id="reply_text" data-url="{%url 'ques:reply_post_api'%}" data-csrf='{{csrf_token}}'>
+  <input type="hidden" name="question" id="questionid" value="{{question_id}}">
+  <button type="submit" name="button" onclick="postReply()">submit</button>
+</div>
 <!-- Reply -->
 {{question}}
 <div class="row">

@@ -67,11 +67,12 @@ def ReplyPost(request, question):
             next = True
         else:
             next = False
-        return render(request, 'reply.html', {'question': question_text, 'reply': data, 'pageNo': pageNo, 'next': next, 'user': request.session.get('UserID')})
+        return render(request, 'reply.html', {'question': question_text,'question_id':question, 'reply': data, 'pageNo': pageNo, 'next': next, 'user': request.session.get('UserID')})
 
     if responce.status_code == 401:
         return redirect('auth:login')
     raise Http404('something went wrong')
+    # return render(request, 'reply.html', {'question': '', 'reply': '', 'pageNo': '', 'next': False, 'user': request.session.get('UserID')})
 
 
 @login_required
@@ -87,6 +88,27 @@ def QuestionPost(request):
             return HttpResponse(json.dumps({'status': 500}))
         if responce.status_code == 200:
             messages.success(request, 'your question successfully added!', extra_tags='alert alert-info')
+            return HttpResponse(json.dumps({'status': 200}))
+        else:
+            messages.error(request, 'some error occurred',extra_tags='alert alert-danger')
+            return HttpResponse(json.dumps({'status': 500}))
+    messages.error(request, 'some error occurred',extra_tags='alert alert-danger')
+    return HttpResponse(json.dumps({'status': 500}))
+
+@login_required
+@csrf_exempt
+def ApiReplyPost(request):
+    if request.is_ajax():
+        question = request.POST['questionid']
+        reply = request.POST['reply']
+        try:
+            responce = re.post(settings.API_URL + '/reply', data={'QuestionID': question,'reply':reply}, headers={'authorization': request.session['jwt_token']})
+        except error as e:
+            print(e)
+            messages.error(request, 'some error occurred',extra_tags='alert alert-danger')
+            return HttpResponse(json.dumps({'status': 500}))
+        if responce.status_code == 200:
+            messages.success(request, 'your reply successfully added!', extra_tags='alert alert-info')
             return HttpResponse(json.dumps({'status': 200}))
         else:
             messages.error(request, 'some error occurred',extra_tags='alert alert-danger')
