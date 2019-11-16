@@ -8,23 +8,22 @@ var infinite = new Waypoint.Infinite({
   }
 });
 
-function postQuestion(){
+function postQuestion() {
   var $ques = $('#add_question');
   $.ajax({
-  type: "POST",
-  url:$ques.data('url'),
-  data: {
-      'question':$ques.val(),
+    type: "POST",
+    url: $ques.data('url'),
+    data: {
+      'question': $ques.val(),
       'csrfmiddlewaretoken': $ques.data('csrf'),
     },
-  success:function(res){
+    success: function(res) {
       responce = JSON.parse(res)
       if (responce.status == 200) {
         $('#mesaage').css('display', 'block');
         $('#mesaage').addClass('alert-info');
         $('#mesaage').html('your question successfully submited !');
-      }
-      else {
+      } else {
         $('#mesaage').css('display', 'block');
         $('#mesaage').addClass('alert-danger');
         $('#mesaage').html('Something went wrong please try again later');

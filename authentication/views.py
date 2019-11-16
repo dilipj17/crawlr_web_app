@@ -6,7 +6,12 @@ import json
 
 def logIn(request):
     if 'jwt_token' in request.session:
-        return redirect('homepage')
+        headers = {'content-type': 'application/json','authorization':request.session['jwt_token']}
+        url = settings.API_URL+'/auth/test'
+        responce = re.post(url,headers = headers)
+        if responce.status_code == 200:
+            return redirect('homepage')
+        return HttpResponse('<a href="https://crawlr-api.herokuapp.com/auth/linkedin">login</a>')
     else:
         return HttpResponse('<a href="https://crawlr-api.herokuapp.com/auth/linkedin">login</a>')
 
@@ -30,9 +35,6 @@ def linkedInTokenHandle(request):
             UserID = jwt_token['UserID']
             request.session['jwt_token'] = token
             request.session['user_id'] = UserID
-            headers = {'content-type': 'application/json','authorization':token}
-            url = settings.API_URL+'/auth/test'
-            responce = re.post(url,headers = headers)
             return redirect('homepage')
         else:
             return render(request,'profile_comfirmation.html',{'jwt_token':jwt_token})
