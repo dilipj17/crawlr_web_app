@@ -37,7 +37,7 @@ def QuestionList(request):
         else:
             next = False
         return render(request, 'question.html', {'question': data,'pageNo':pageNo,'next':next,'user':request.session.get('UserID')})
-    return Http404('some error occurred')
+    raise Http404('some error occurred')
     # return render(request,'question.html',{'question':'spdofsdopf','pageNo':0,'next':False})
 
 @login_required
@@ -49,13 +49,13 @@ def QuestionPost(request):
             responce = re.post(settings.API_URL+'/question',data={'question':question},headers={'authorization':request.session['jwt_token']})
         except error as e:
             print(e)
-            messages.error(request,'some error occurred')
+            messages.error(request,'some error occurred',extra_tags= 'alert alert-danger')
             return HttpResponse(json.dumps({'status':500}))
         if responce.status_code == 200:
-            messages.success(request,'your question successfully added!')
+            messages.success(request,'your question successfully added!',extra_tags= 'alert alert-info')
             return HttpResponse(json.dumps({'status':200}))
         else:
-            messages.error(request,'some error occurred')
+            messages.error(request,'some error occurred',extra_tags= 'alert alert-danger')
             return HttpResponse(json.dumps({'status':500}))
-    messages.error(request,'some error occurred')
+    messages.error(request,'some error occurred',extra_tags= 'alert alert-danger')
     return HttpResponse(json.dumps({'status':500}))

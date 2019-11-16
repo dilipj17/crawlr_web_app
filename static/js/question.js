@@ -29,8 +29,8 @@ function postQuestion(){
         $('#mesaage').addClass('alert-danger');
         $('#mesaage').html('Something went wrong please try again later');
       }
+      location.reload(true);
     }
-    location.reload(true);
-    $('#closepopque').click()
   });
+  $('#closepopque').click()
 }
