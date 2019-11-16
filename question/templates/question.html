@@ -44,10 +44,8 @@
   <!-- Questions -->
   <div class="row">
     <div class="infinite-container">
-      <div class="infinite-item" data-quesid="5dcfc97d4459e30017172c0f">{'id': '5dcfc97d4459e30017172c0f', 'askerID': '5dcfc74e4459e30017172c0d', 'image': 'https://crawlr-api.herokuapp.com/user/image?id=5dcfc74e4459e30017172c0d&amp;timestamp=1573898070047', 'fullName': 'Dilip Jat', 'timestamp': 1573898621931, 'replies': 0, 'question': 'Accessing website hosted in a linux container from windows host?'}</div>
-      <div class="infinite-item" data-quesid="5dcfc97d4459e30017172c0g">{'id': '5dcfc97d4459e30017172c0f', 'askerID': '5dcfc74e4459e30017172c0d', 'image': 'https://crawlr-api.herokuapp.com/user/image?id=5dcfc74e4459e30017172c0d&amp;timestamp=1573898070047', 'fullName': 'Dilip Jat', 'timestamp': 1573898621931, 'replies': 0, 'question': 'Accessing website hosted in a linux container from windows host?'}</div>
       {%for data in question%}
-        <div class="infinite-item" data-section='ques' data-quesid = '{{data.id}}'>{{ data }}</div>
+        <div class="infinite-item" data-section='ques'><a href="{%url 'ques:reply' data.id%}?question={{data.question}}">{{ data }}</a></div>
       {%endfor%}
     </div>
     <div class="loading" style="display: none;">

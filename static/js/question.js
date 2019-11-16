@@ -8,7 +8,8 @@ var infinite = new Waypoint.Infinite({
   }
 });
 
-function postQuestion() {
+function postQuestion(event) {
+  event.preventDefault()
   var $ques = $('#add_question');
   $.ajax({
     type: "POST",
