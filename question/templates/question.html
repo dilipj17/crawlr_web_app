@@ -46,6 +46,9 @@
     <div class="infinite-container">
       {%for data in question%}
         <div class="infinite-item" data-section='ques'><a href="{%url 'ques:reply' data.id%}?question={{data.question}}">{{ data }}</a></div>
+        {%if user == data.askerID%}
+          <a href="{%url 'ques:delete_ques' data.id%}">delete</a>
+        {%endif%}
       {%endfor%}
     </div>
     <div class="loading" style="display: none;">

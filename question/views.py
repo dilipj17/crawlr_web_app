@@ -37,10 +37,27 @@ def QuestionList(request):
             next = True
         else:
             next = False
-        return render(request, 'question.html', {'question': data, 'pageNo': pageNo, 'next': next, 'user': request.session.get('UserID')})
+        return render(request, 'question.html', {'question': data, 'pageNo': pageNo, 'next': next, 'user': request.session['user_id']})
     raise Http404('some error occurred')
     # return render(request,'question.html',{'question':'spdofsdopf','pageNo':0,'next':False})
 
+@login_required
+def DeleteQuestion(request,question):
+    print(request.session['jwt_token'])
+    headers = {'content-type': 'application/json','authorization': request.session.get('jwt_token')}
+    params = {'QuestionID': question}
+    try:
+        responce = re.delete(settings.API_URL+'/question?QuestionID='+question,data=json.dumps(params),headers=headers)
+    except Exception as e:
+        print(e)
+        raise Http404('someting went wrong ')
+    if responce.status_code == 401:
+        return redirect('auth:login')
+    if responce.status_code == 200:
+        messages.success(request, 'your question successfully deleted !', extra_tags='alert alert-info')
+        return redirect('homepage')
+    print(responce.status_code)
+    raise Http404('something went wrong')
 
 @login_required
 def ReplyPost(request, question):
@@ -56,7 +73,7 @@ def ReplyPost(request, question):
     params = {'pageNo': pageNo, 'questionID': question}
     try:
         responce = re.get(settings.API_URL + '/reply',params=params, headers=headers)
-    except Error as r:
+    except Exception as r:
         print(r)
         raise Http404('something went wring')
     if responce.status_code == 200:
@@ -67,7 +84,7 @@ def ReplyPost(request, question):
             next = True
         else:
             next = False
-        return render(request, 'reply.html', {'question': question_text,'question_id':question, 'reply': data, 'pageNo': pageNo, 'next': next, 'user': request.session.get('UserID')})
+        return render(request, 'reply.html', {'question': question_text,'question_id':question, 'reply': data, 'pageNo': pageNo, 'next': next, 'user': request.session['user_id']})
 
     if responce.status_code == 401:
         return redirect('auth:login')
@@ -82,7 +99,7 @@ def QuestionPost(request):
         question = request.POST['question']
         try:
             responce = re.post(settings.API_URL + '/question', data={'question': question}, headers={'authorization': request.session['jwt_token']})
-        except error as e:
+        except Exception as e:
             print(e)
             messages.error(request, 'some error occurred',extra_tags='alert alert-danger')
             return HttpResponse(json.dumps({'status': 500}))
@@ -103,7 +120,7 @@ def ApiReplyPost(request):
         reply = request.POST['reply']
         try:
             responce = re.post(settings.API_URL + '/reply', data={'QuestionID': question,'reply':reply}, headers={'authorization': request.session['jwt_token']})
-        except error as e:
+        except Exception as e:
             print(e)
             messages.error(request, 'some error occurred',extra_tags='alert alert-danger')
             return HttpResponse(json.dumps({'status': 500}))
