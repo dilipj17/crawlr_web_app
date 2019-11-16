@@ -11,9 +11,8 @@ def logIn(request):
         responce = re.post(url,headers = headers)
         if responce.status_code == 200:
             return redirect('homepage')
-        return HttpResponse('<a href="https://crawlr-api.herokuapp.com/auth/linkedin">login</a>')
-    else:
-        return HttpResponse('<a href="https://crawlr-api.herokuapp.com/auth/linkedin">login</a>')
+        return render(request,'login.html')
+    return render(request,'login.html')
 
 def logOut(request):
     try:
