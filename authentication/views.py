@@ -45,8 +45,9 @@ def profileComfirm(request):
         provider = request.POST.get('provider')
         id = request.POST.get('id')
         fullName = request.POST.get('fullName')
+        email = request.POST.get('email')
         image = request.POST.get('image')
-        data = {'provider':provider,'id':id,'fullName':fullName,'image':image}
+        data = {'provider':provider,'id':id,'fullName':fullName,'image':image,'email':email}
         headers = {'content-type': 'application/json'}
         responce = re.post(settings.API_URL+'/auth/confirm',data=json.dumps(data),headers = headers)
         print(responce.content)
