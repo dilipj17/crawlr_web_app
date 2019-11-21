@@ -3,6 +3,11 @@ from django.shortcuts import redirect,render
 import requests as re
 from crawlr_web import settings
 import json
+from crawlr_web.decorators import login_required
+
+@login_required
+def homepage(request):
+    return render(request,'index.html')
 
 def logIn(request):
     if 'jwt_token' in request.session:

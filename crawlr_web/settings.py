@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authentication',
     'question',
-
+    'search',
 ]
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"

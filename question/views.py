@@ -70,7 +70,7 @@ def DeleteQuestion(request,question):
         return redirect('auth:login')
     if responce.status_code == 200:
         messages.success(request, 'your question successfully deleted !', extra_tags='alert alert-info')
-        return redirect('homepage')
+        return redirect('ques:all')
     print(responce.status_code)
     raise Http404('something went wrong')
 
