@@ -15,7 +15,7 @@ def resultpage(request):
         print(e)
         raise Http404('somerthing went wrong')
     if responce.status_code == 200:
-        return HttpResponse(responce.status_code)
+        return render(request,'result.html',{'Question_id':responce.json()['id']})
     if responce.status_code == 401:
         return redirect('auth:login')
     raise Http404('something went wrong')
