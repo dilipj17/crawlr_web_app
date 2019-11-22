@@ -14,7 +14,7 @@ SECRET_KEY = 'n_pls@8v1fl%!+spnr*1x&v^t&6@4*biyrirmh@uuwc23*e)rs'
 DEBUG = True
 API_URL = 'https://crawlr-api.herokuapp.com'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

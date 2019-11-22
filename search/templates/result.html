@@ -1,7 +1,12 @@
 {%extends 'base.html'%}
+{%load static%}
 {%block content%}
-    <input type="hidden" name="id" value="{{Question_id}}">
+<input type="hidden" name="id" value="{{Question_id}}">
+<input type="hidden" name="result_url" value="{%url 'search:result_api'%}">
+<div id="data">
+
+</div>
 {%endblock%}
 {%block script%}
-
+<script src="{%static 'js/search.js'%}" charset="utf-8"></script>
 {%endblock%}
