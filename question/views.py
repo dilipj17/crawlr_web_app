@@ -12,7 +12,6 @@ from django.contrib import messages
 def QuestionList(request):
     headers = {'content-type': 'application/json','authorization': request.session.get('jwt_token')}
     data1 = {}
-    data2 = {}
     pageNo = request.GET.get('page')
     if pageNo == None:
         pageNo = 1
@@ -27,12 +26,6 @@ def QuestionList(request):
             print(e)
             raise Http404('something went wrong')
         data1 = responce.json()
-        try:
-            responce = re.get(settings.API_URL+'/search/all',params={'pageNo':pageNo},headers=headers)
-        except Exception as e:
-            print(e)
-            raise Http404('something went wrong')
-        data2 = responce.json()
     params = {'pageNo': pageNo}
     try:
         responce = re.get(settings.API_URL + '/question/all',params=params, headers=headers)
@@ -52,7 +45,9 @@ def QuestionList(request):
             next = True
         else:
             next = False
-        return render(request, 'question.html', {'trending':data1,'search':data2,'question': data, 'pageNo': pageNo, 'next': next, 'user': request.session['user_id']})
+        return render(request, 'question.html', {'trending':data1,'question': data, 'pageNo': pageNo, 'next': next, 'user': request.session['user_id']})
+    if responce.status_code == 401:
+        return redirect('auth:login')
     raise Http404('some error occurred')
     # return render(request,'question.html',{'question':'spdofsdopf','pageNo':0,'next':False})
 

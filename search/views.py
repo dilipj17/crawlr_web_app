@@ -7,6 +7,43 @@ import json
 from crawlr_web.decorators import login_required
 
 @login_required
+def resultallpage(request):
+    query = request.GET['q']
+    if query == None:
+        return redirect('search:all')
+    return render(request,'result.html',{'Question_id':query})
+
+@login_required
+def allSearch(request):
+    headers = {'content-type': 'application/json','authorization': request.session.get('jwt_token')}
+    pageNo = request.GET.get('page')
+    if pageNo == None:
+        pageNo = 1
+    else:
+        pageNo = int(pageNo)
+    if pageNo < 0 or pageNo == 0:
+        pageNo = 1
+    try:
+        responce = re.get(settings.API_URL+'/search/all',params={'pageNo':pageNo},headers=headers)
+    except Exception as e:
+        print(e)
+        raise Http404('something went wrong')
+    if responce.status_code == 200:
+        res = responce.json()
+        data = res['data']
+        for i in data:
+            i['id'] = i.pop('_id')
+        if data:
+            pageNo += 1
+            next = True
+        else:
+            next = False
+        return render(request, 'mysearch.html', {'searches':data,'pageNo': pageNo, 'next': next})
+    if responce.status_code == 401:
+        return redirect('auth:login')
+    raise Http404('some error occurred')
+
+@login_required
 def resultpage(request):
     query = request.POST['q']
     if len(query) == 0:
