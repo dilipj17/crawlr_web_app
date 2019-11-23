@@ -22,7 +22,14 @@ var $timer = setInterval(function() {
         }
       }
       else {
-        $data.html(responce)
+        if (responce.status == "D") {
+          $data.html(JSON.stringify(responce.result))
+          clearTimeout($timer)
+        }
+        if (responce.status == "ERR") {
+          $data.html('server error occured')
+          clearTimeout($timer)
+        }
       }
     }
   });

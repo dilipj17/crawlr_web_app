@@ -58,7 +58,6 @@ def QuestionList(request):
 
 @login_required
 def DeleteQuestion(request,question):
-    print(request.session['jwt_token'])
     headers = {'content-type': 'application/json','authorization': request.session.get('jwt_token')}
     params = {'QuestionID': question}
     try:
@@ -71,7 +70,6 @@ def DeleteQuestion(request,question):
     if responce.status_code == 200:
         messages.success(request, 'your question successfully deleted !', extra_tags='alert alert-info')
         return redirect('ques:all')
-    print(responce.status_code)
     raise Http404('something went wrong')
 
 @login_required

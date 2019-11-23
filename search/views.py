@@ -34,7 +34,6 @@ def ResultApi(request):
         return HttpResponse(json.dumps({'code':400}))
     if responce.status_code == 200:
         res = responce.json()
-        print(res)
         return HttpResponse(json.dumps(res))
     if responce.status_code == 401:
         return HttpResponse(json.dumps({'code':401}))

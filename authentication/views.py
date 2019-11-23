@@ -55,7 +55,6 @@ def profileComfirm(request):
         data = {'provider':provider,'id':id,'fullName':fullName,'image':image,'email':email}
         headers = {'content-type': 'application/json'}
         responce = re.post(settings.API_URL+'/auth/confirm',data=json.dumps(data),headers = headers)
-        print(responce.content)
         if responce.status_code == re.codes.ok:
             jwt_token = responce.json()
             if 'JWT' in jwt_token.keys():
