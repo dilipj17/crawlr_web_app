@@ -3,36 +3,36 @@
 
 {%block title%}searches{%endblock%}
 {%block content%}
-  <!-- Message -->
-  <div class="row">
-    <div class="col-sm-12">
-      {% if messages %}
-        <ul class="info">
-          {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-      <div class="alert" id="mesaage" style="display:None"></div>
-    </div>
+<!-- Message -->
+<div class="row">
+  <div class="col-sm-12">
+    {% if messages %}
+    <ul class="info">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="alert" id="mesaage" style="display:None"></div>
   </div>
+</div>
 
-  <!-- Questions -->
-  <div class="row">
-    <div class="infinite-container">
-      {%for data in searches%}
-        <div class="infinite-item"><a href="{%url 'search:resultall'%}?q={{data.id}}">{{ data }}</a></div>
-      {%endfor%}
-    </div>
-    <div class="loading" style="display: none;">
-      Loading...
-    </div>
-    {%if next%}
-      <a class="infinite-more-link" href="?page={{ pageNo }}"></a>
-    {%endif%}
+<!-- Questions -->
+<div class="row">
+  <div class="infinite-container">
+    {%for data in searches%}
+    <div class="infinite-item"><a href="{%url 'search:resultall'%}?q={{data.id}}">{{ data }}</a></div>
+    {%endfor%}
   </div>
+  <div class="loading" style="display: none;">
+    Loading...
+  </div>
+  {%if next%}
+  <a class="infinite-more-link" href="?page={{ pageNo }}"></a>
+  {%endif%}
+</div>
 {%endblock%}
 
 {%block script%}
-  <script src="{%static 'js/question.js'%}" charset="utf-8"></script>
+<script src="{%static 'js/question.js'%}" charset="utf-8"></script>
 {%endblock%}
