@@ -70,7 +70,8 @@
 <!-- Button trigger modal -->
 
 <!-- Add Question Popup -->
-<div class="modal fade" id="Addquestion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="Addquestion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -80,7 +81,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <textarea name="add_question" id="add_question" data-url="{%url 'ques:post_api'%}" data-csrf='{{csrf_token}}' rows="8" cols="50"></textarea>
+        <textarea name="add_question" id="add_question" data-url="{%url 'ques:post_api'%}" data-csrf='{{csrf_token}}'
+          rows="8" cols="50"></textarea>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closepopque">Close</button>
@@ -119,12 +121,13 @@
                 <!-- <a class="dropdown-item" href="#" style="color: black;">
                               <span class="mr-3"><i class="fa fa-edit"></i></span>Reply</a> -->
                 <a class="dropdown-item" href="{%url 'ques:delete_ques' data.id%}" style="color: black;">
-                  <span class="mr-3"><i class="fa fa-trash-o" style="color:red;"></i>&nbsp;</span>Delete</a>
+                  <span class="mr-3"><i class="fa fa-trash" style="color:red;"></i>&nbsp;</span>Delete</a>
               </div>
             </div>
             {%endif%}
           </span>
-          <div onclick="location.href='{%url 'ques:reply' data.id%}?question={{data.question}}&asker={{data.askerID}}'" style="cursor:pointer" class="ml-5 mt-3" style="font-size: 15px;font-weight: bold">
+          <div onclick="location.href='{%url 'ques:reply' data.id%}?question={{data.question}}&asker={{data.askerID}}'"
+            style="cursor:pointer" class="ml-5 mt-3" style="font-size: 15px;font-weight: bold">
             {{data.question}}
           </div>
           <div align="right" style="font-size: 13px">
@@ -160,7 +163,7 @@
               &nbsp;&nbsp;{{data.searchQuery}}
             </span>
             <span style="float: right;">
-              <img src={%  static "Images/cup1.png" %} />
+              <i class="fa fa-trophy" style="color: gold;"></i>
               <p style="color:#FFD700;display: inline">{{data.points}}</p>
             </span>
           </div>

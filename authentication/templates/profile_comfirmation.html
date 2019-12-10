@@ -1,10 +1,6 @@
 {%extends 'base_without_navbar.html'%}
-{% load staticfiles %}
+{% load static %}
 {%block content%}
-
-<head>
-  <link rel="stylesheet" type="text/css" href="{% static "css/circularimage.css" %}">
-</head>
 <style>
   body {
     font-family: 'Quicksand';
@@ -38,7 +34,7 @@
   <div class="row mt-3 mb-5">
     <div class="col-sm-4"></div>
     <div class="col-sm-4">
-      <img class="ratio img-responsive img-circle" src="{{jwt_token.image}}">
+      <img class=" rounded-circle z-depth-2" src="{{jwt_token.image}}" width="70" height="70">
     </div>
     <div class="col-sm-4"></div>
   </div>
@@ -54,11 +50,13 @@
       <input id="id_image" type="hidden" name="image" src="{{jwt_token.image}}">
       <div class="mb-4">
         <label for="exampleInputName"><strong>Name</strong></label>
-        <input type="text" class="form-control" name="fullName" id="id_fullName" placeholder="Enter your name" value="{{jwt_token.fullName}}">
+        <input type="text" class="form-control" name="fullName" id="id_fullName" placeholder="Enter your name"
+          value="{{jwt_token.fullName}}">
       </div>
       <div>
         <label for="exampleInputEmail"><strong>Email</strong></label>
-        <input type="email" class="form-control" name="email" id="id_email" placeholder="Enter your email" value="{{jwt_token.email}}">
+        <input type="email" class="form-control" name="email" id="id_email" placeholder="Enter your email"
+          value="{{jwt_token.email}}">
       </div>
       <button type="submit" class="btn btn-info btn-lg bt">Go</button>
     </form>

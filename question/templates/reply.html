@@ -16,6 +16,31 @@
     padding: 4px 25px;
   }
 
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #F8F8F8;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 14px;
+  }
+
+  .dropdown-item:active {
+    background: deepskyblue;
+  }
+
+  .dropdown-item:hover {
+    background: deepskyblue;
+  }
+
+  .button2 {
+    background-color: #FFFFFF;
+    border: none;
+    outline: none !important;
+    border-radius: 50%;
+    font-size: 22px;
+  }
+
   .line1 {
     border: 1px solid lightgray;
     border-radius: 5px;
@@ -73,9 +98,11 @@
     <div class="mb-4">
       <form style="width: 100%;">
         <span class="form-group mt-4">
-          <input type="text" name="reply" id="reply_text" class="form-control inrep" placeholder="  Your reply..." data-url="{%url 'ques:reply_post_api'%}" data-csrf='{{csrf_token}}'>
+          <input type="text" name="reply" id="reply_text" class="form-control inrep" placeholder="  Your reply..."
+            data-url="{%url 'ques:reply_post_api'%}" data-csrf='{{csrf_token}}'>
         </span>
-        <button style="float: right;" type="submit" class="btn btn-primary button1 mt-2" onclick="postReply()">Reply</button></span>
+        <button style="float: right;" type="submit" class="btn btn-primary button1 mt-2"
+          onclick="postReply()">Reply</button></span>
         <div style="clear: both"></div>
       </form>
     </div>
@@ -91,6 +118,27 @@
             <div class="card-body" style="font-weight: bold">
               {{data.reply}}
             </div>
+            <!-- verify delete -->
+            {% if user == asker or user == data.UserID%}
+            <span class="ml-3" style="float: right">
+              <div class="dropdown">
+                <button class="button2" type="button" data-toggle="dropdown">
+                  <span style="font-weight:bold">. . .</span>
+                </button>
+                <div class="dropdown-menu">
+                  {%if user == asker%}
+                  <a class="dropdown-item verify-reply" href="#" style="color: black;" data-reply='{{data.id}}'>
+                    <span class="mr-3"><i style="color: green;" class="fa fa-check"></i></span>Verify</a>
+                  {%endif%}
+                  {%if user == data.UserID%}
+                  <a class="dropdown-item delete-reply" href="#" style="color: black;" data-reply='{{data.id}}'>
+                    <span class="mr-3"><i class="fa fa-trash" style="color:red;"></i>&nbsp;</span>Delete</a>
+                  {%endif%}
+                </div>
+              </div>
+            </span>
+            {%endif%}
+            <!-- end of verify delete -->
           </div>
           <div>
             <span style="float: right;">
@@ -120,19 +168,7 @@
   <div class="col-sm-2"></div>
 
 </div>
-<div class="row">
-  <div class="infinite-container">
-    {%for data in reply%}
-    <!-- <div class="infinite-item" data-section='ques'>{{ data }}</div> -->
-    {%if user == data.UserID%}
-    <a class="delete-reply" data-reply='{{data.id}}'>delete</a>
-    {%endif%}
-    {%if user == asker%}
-    <a class="verify-reply" data-reply='{{data.id}}'>verify</a>
-    {%endif%}
-    {%endfor%}
-  </div>
-</div>
+
 {%endblock%}
 {%block script%}
 <script src="{%static 'js/question.js'%}" charset="utf-8"></script>

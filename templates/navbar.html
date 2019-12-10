@@ -1,48 +1,117 @@
 {%load static%}
 <style>
-  .navbar-custom {
-    background-color: #197DAF;
-  }
+    .navbar-custom {
+        background-color: #197DAF;
+    }
 
-  .has-search .form-control {
-    padding-left: 2.375rem;
-    width: 25rem;
-  }
+    .navbar .dropdown-menu {
+        background-color: #F0F0F0;
+        width: 310px;
+        border-radius: 4px;
+    }
 
-  .has-search .form-control-feedback {
-    position: absolute;
-    z-index: 2;
-    display: block;
-    width: 2.375rem;
-    height: 2.375rem;
-    line-height: 2.375rem;
-    text-align: center;
-    color: #fff;
-  }
+    .buttn1 {
+        border-radius: 50%;
+    }
+
+    .buttn1:focus,
+    .buttn1:active {
+        outline: none !important;
+        box-shadow: none;
+    }
+
+    .tr {
+        font-size: calc(100% + 0.3vw + 0.3vh);
+        font-family: 'Quicksand';
+    }
+
+    .btz {
+        background-color: gold;
+        border-radius: 20px;
+        border: none;
+        padding: 4px 17px;
+    }
+
+    .btz1 {
+        background-color: #ff3333;
+        border-radius: 20px;
+        border: none;
+        padding: 4px 20px;
+    }
 </style>
-<nav class="navbar navbar-expand-md navbar-dark navbar-custom">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav class="navbar navbar-expand-md navbar-dark navbar-custom" style="height: 52px;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse mr-5" id="navbarSupportedContent">
-    <ul class="navbar-nav mx-auto">
-      <li class="nav-item mr-5">
-        <a class="nav-link" href="#">Connect</a>
-      </li>
-      <li class="nav-item mr-5">
-        <a class="nav-link" href="#">Trending</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">My Searches</a>
-      </li>
-    </ul>
-    <form class="form-inline has-search mr-5">
-      <span class="fa fa-search form-control-feedback"></span>
-      <input type="text" class="form-control" style="border-radius: 20px" placeholder="Search for a domain, email or a username...">
-    </form>
-  </div>
-  <input type="hidden" id="profileurl" value="{% url 'auth:profile'%}">
-  <div id="profile-data">
-  </div>
+    <div class="collapse navbar-collapse mr-5" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item mr-5">
+                <a class="nav-link" href="{%url 'homepage'%}" style="color: white;">Home</a>
+            </li>
+            <li class="nav-item mr-5">
+                <a class="nav-link" href="{% url 'ques:all'%}" style="color: white;">Connect</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{%url 'search:all'%}" style="color: white;"> My Searches</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+            <li class="dropdown order-1">
+                <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn dropdown-toggle buttn1">
+                    <span id="profileimage1">
+
+                    </span>
+                    <span style="font-size: small;">
+                        <span id="fullname1">{fullName}</span>
+                    </span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right mt-2">
+                    <li class="px-3 py-2">
+                        <div>
+                            <div style="text-align: center;">
+                                <p class="tr mb-5" style="display:inline;font-size: small;"><strong>My Account</strong>
+                                </p>
+                                <div class="mt-5 mb-3" id="profileimage2">
+                                </div>
+                                <p class="mb-1" style="font-size: medium;font-weight: 700;" id="fullname2">{Name John}
+                                </p>
+                                <p class="mb-3" style="font-size: x-small;" id="email"></p>
+                                <p style="font-size: x-small;font-weight:600;" id="about"></p>
+                            </div>
+                            <div class="row mt-4" style="text-align: center;">
+                                <div class="col-sm-4">
+                                    <div style="font-size: small;font-weight: 600;" id="searches"></div>
+                                    <div style="font-size: small">Searches</div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div style="font-size: small;font-weight: 600;" id="questions"></div>
+                                    <div style="font-size: small">Questions</div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div style="font-size: small;font-weight: 700;" id="replys"></div>
+                                    <div style="font-size: small">Karma</div>
+                                </div>
+                            </div>
+                            <div class="row mt-5" style="text-align: center;">
+                                <div class="col-sm-6">
+                                    <button style="font-size: small;color: black;" type="submit"
+                                        class="btn btn-info btn-lg btz"><span><i style="color: deeppink"
+                                                class="fa fa-star"></i>&nbsp;Premium</span>&nbsp</button>
+                                </div>
+                                <div class="col-sm-0"></div>
+                                <div class="col-sm-6">
+                                    <a href="{%url 'auth:logout'%}"> <button style="font-size: small;color: white;"
+                                            type="submit" class="btn btn-info btn-lg btz1"><span><i
+                                                    class="fa fa-power-off"></i>&nbsp;Log</span>&nbsp<span>out</span></button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <input type="hidden" id="profileurl" value="{% url 'auth:profile'%}">
 </nav>
