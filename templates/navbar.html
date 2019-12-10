@@ -1,3 +1,4 @@
+{%load static%}
 <style>
   .navbar-custom {
     background-color: #197DAF;
@@ -40,5 +41,8 @@
       <span class="fa fa-search form-control-feedback"></span>
       <input type="text" class="form-control" style="border-radius: 20px" placeholder="Search for a domain, email or a username...">
     </form>
+  </div>
+  <input type="hidden" id="profileurl" value="{% url 'auth:profile'%}">
+  <div id="profile-data">
   </div>
 </nav>

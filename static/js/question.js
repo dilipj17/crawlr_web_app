@@ -88,6 +88,7 @@ $(document).ready(function() {
       }
     });
   });
+  
   $(document).on('click', '.verify-reply', function(event) {
     event.preventDefault();
     var id = $(this).data('reply');
