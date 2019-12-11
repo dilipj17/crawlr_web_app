@@ -24,6 +24,8 @@ $(document).ready(function() {
         $("#searches").html(responce.searches);
         $("#questions").html(responce.questions);
         $("#replys").html(responce.karma);
+        $(".loading").hide();
+        $("#profileformnavbar").show();
       } else {
         console.log("some error occured");
       }
