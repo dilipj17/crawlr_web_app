@@ -1,12 +1,9 @@
 $(document).ready(function() {
   var $data = $("#profileurl");
-  console.log($data.val());
-
   $.ajax({
     type: "GET",
     url: $data.val(),
     success: function(res) {
-      console.log(res);
 
       responce = JSON.parse(res);
       if (responce.status == 200) {

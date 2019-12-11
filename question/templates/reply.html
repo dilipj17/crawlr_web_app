@@ -157,8 +157,10 @@
       </div>
       {%endfor%}
     </div>
-    <div class="loading" style="display: none;">
-      Loading...
+    <div class="loading" style="display: none;text-align:center">
+      <lottie-player src="https://assets3.lottiefiles.com/datafiles/fPx4vaZrul2Fvg9/data.json" mode="normal" 
+        speed="1" style="width:150px; height: 150px;" hover loop autoplay>
+      </lottie-player>
     </div>
     {%if next%}
     <a class="infinite-more-link" href="?page={{ pageNo }}"></a>

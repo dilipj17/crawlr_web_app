@@ -2,7 +2,7 @@ var $timer = setInterval(function() {
   var $id = $('input[name=id]').val()
   var $url = $('input[name=result_url]').val()
   var $data = $('#data')
-  $data.html('loading ... ')
+  $data.html('<div class="loading" style="display: block;text-align:center"><lottie-player src="https://assets3.lottiefiles.com/datafiles/fPx4vaZrul2Fvg9/data.json" mode="normal" speed="1" style="width:150px; height: 150px;" hover loop autoplay></lottie-player></div>')
   $.ajax({
     type: 'GET',
     url: $url,
