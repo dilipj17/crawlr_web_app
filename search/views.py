@@ -75,3 +75,18 @@ def ResultApi(request):
     if responce.status_code == 401:
         return HttpResponse(json.dumps({'code':401}))
     return HttpResponse(json.dumps({'code':400}))
+
+
+@login_required
+def cancelSearch(request):
+    id = request.GET['id']
+    try:
+        responce = re.delete(settings.API_URL+'/search/cancel?id='+str(id),headers={'content-type':'application/json','authorization':request.session['jwt_token']})
+    except Exception as e:
+        print(e)
+        raise Http404('something went wrong')
+    if responce.status_code == 200:
+        return redirect('search:all')
+    if responce.status_code == 401:
+        return redirect('auth:login')
+    raise Http404('something went wrong')

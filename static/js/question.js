@@ -62,6 +62,7 @@ function postReply() {
 
 $(document).ready(function() {
   $(document).on('click', '.delete-reply', function(event) {
+    $('#replyload').html('<div style="text-align:center"><lottie-player src="https://assets3.lottiefiles.com/datafiles/fPx4vaZrul2Fvg9/data.json" mode="normal" speed="1" style="width:100px; height: 100px;" hover loop autoplay></lottie-player></div>')
     event.preventDefault();
     var id = $(this).data('reply');
     var $data = $('#reply_delete_url');
@@ -91,6 +92,7 @@ $(document).ready(function() {
   
   $(document).on('click', '.verify-reply', function(event) {
     event.preventDefault();
+    $('#replyload').html('<div style="text-align:center"><lottie-player src="https://assets3.lottiefiles.com/datafiles/fPx4vaZrul2Fvg9/data.json" mode="normal" speed="1" style="width:100px; height: 100px;" hover loop autoplay></lottie-player></div>')
     var id = $(this).data('reply');
     var $data = $('#reply_verify_url');
     $.ajax({

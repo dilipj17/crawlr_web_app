@@ -26,6 +26,10 @@ var $timer = setInterval(function() {
           $data.html(JSON.stringify(responce.result))
           clearTimeout($timer)
         }
+        if (responce.status == "C") {
+          $data.html(JSON.stringify('you cancelled this search'))
+          clearTimeout($timer)
+        }
         if (responce.status == "ERR") {
           $data.html('server error occured')
           clearTimeout($timer)

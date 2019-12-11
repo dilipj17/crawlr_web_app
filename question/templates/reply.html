@@ -112,6 +112,7 @@
     <input type="hidden" value="{%url 'ques:reply_delete_api'%}" data-csrf={{csrf_token}} id="reply_delete_url">
     <input type="hidden" value="{%url 'ques:reply_verify_api'%}" data-csrf={{csrf_token}} id="reply_verify_url">
     <div class="infinite-container">
+      <div id="replyload" style="text-align:center"></div>
       {%for data in reply%}
       <div class="infinite-item">
         <div class="mb-4">
