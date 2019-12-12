@@ -29,7 +29,6 @@ var $timer = setInterval(function() {
             stringdata +=   '<div class="mt-4 mb-3">'
             stringdata +=    iconreturn(data.Icon)
             stringdata +=        '<h3 style="display: inline;" style="font-weight: bold;font-size: 19px;">'+data.title+'</h3>'
-            stringdata +=        '<i style="font-size: 23px;color: darkgrey;" class="fa fa-caret-down"></i>'
             stringdata +=    '</div>'
             if(isEmpty(data.content)){
               stringdata += '<p>no results found</p>'
