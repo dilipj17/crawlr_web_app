@@ -9,6 +9,21 @@ from django.contrib import messages
 
 
 @login_required
+def payment(request):
+    return render(request, 'payment.html')
+
+@login_required
+def payment_success(request):
+    razorpay_payment_id = request.POST.get('razorpay_payment_id')
+    headers = {'content-type': 'application/json','authorization': request.session.get('jwt_token')}
+    try:
+        response = re.post(settings.API_URL + '/user', data=json.dumps({'paymentID': razorpay_payment_id}), headers=headers)
+    except Exception as e:
+        print(e)
+        return HttpResponse(json.dumps({'status': 500}))
+    return redirect('/auth/login')
+
+@login_required
 def QuestionList(request):
     headers = {'content-type': 'application/json','authorization': request.session.get('jwt_token')}
     data1 = {}

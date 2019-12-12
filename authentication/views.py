@@ -37,7 +37,7 @@ def linkedInTokenHandle(request):
     state = request.GET.get('state')
     accessToken = '?code='+code+'&state='+state
     responce = re.post(settings.API_URL+'/auth/linkedin/callback/'+accessToken)
-    if responce.status_code == re.codes.ok:
+    if responce.status_code == 200:
         jwt_token = responce.json()
         if 'JWT' in jwt_token.keys():
             token = jwt_token['JWT']
@@ -62,7 +62,7 @@ def profileComfirm(request):
         headers = {'content-type': 'application/json'}
         responce = re.post(settings.API_URL+'/auth/confirm',
                            data=json.dumps(data), headers=headers)
-        if responce.status_code == re.codes.ok:
+        if responce.status_code == 200:
             jwt_token = responce.json()
             if 'JWT' in jwt_token.keys():
                 token = jwt_token['JWT']
