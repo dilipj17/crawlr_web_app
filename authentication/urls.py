@@ -7,4 +7,5 @@ urlpatterns = [
     path('profile/',views.profileComfirm, name='profile_comfirm'),
     path('api/profile/',views.getProfile, name='profile'),
     path('logout/',views.logOut, name='logout'),
+    path('edit/',views.editProfile, name='edit'),
 ]

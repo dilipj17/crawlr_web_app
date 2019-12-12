@@ -9,9 +9,10 @@ from crawlr_web.decorators import login_required
 @login_required
 def resultallpage(request):
     query = request.GET['q']
+    search_text = request.GET['t']
     if query == None:
         return redirect('search:all')
-    return render(request,'result.html',{'Question_id':query})
+    return render(request,'result.html',{'Question_id':query,'search_query':search_text})
 
 @login_required
 def allSearch(request):
@@ -54,7 +55,7 @@ def resultpage(request):
         print(e)
         raise Http404('somerthing went wrong')
     if responce.status_code == 200:
-        return render(request,'result.html',{'Question_id':responce.json()['id']})
+        return render(request,'result.html',{'Question_id':responce.json()['id'],'search_query':responce.json()['searchQuery']})
     if responce.status_code == 401:
         return redirect('auth:login')
     raise Http404('something went wrong')

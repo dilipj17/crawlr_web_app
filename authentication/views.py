@@ -107,4 +107,7 @@ def getProfile(request):
         else:
             return HttpResponse(json.dumps({'status': 500}))
     return HttpResponse(json.dumps({'status': 500}))
-    
+
+@login_required
+def editProfile(request):
+    return HttpResponse('sdf')
