@@ -8,7 +8,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'n_pls@8v1fl%!+spnr*1x&v^t&6@4*biyrirmh@uuwc23*e)rs'
+SECRET_KEY = os.environ['SECRET_KEY']
+ROOT_URLCONF = 'dairy_site.urls'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
