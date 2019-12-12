@@ -26,6 +26,9 @@ $(document).ready(function() {
         $("#replys").html(responce.karma);
         $(".loading").hide();
         $("#profileformnavbar").show();
+        if (responce.isPremiumUser) {
+          $('#premiumbutton').hide()
+        }
       } else {
         console.log("some error occured");
       }

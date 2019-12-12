@@ -56,15 +56,18 @@ var $timer = setInterval(function() {
             });
             stringdata += '</div>'
           });
+          $('#querystatus').html('<i class="fa fa-check-circle-o" style="color: limegreen;"></i>')
           $data.html(stringdata)
           clearTimeout($timer)
           feather.replace()
         }
         if (responce.status == "C") {
+          $('#querystatus').html('<i class="fa fa-exclamation-triangle" style="color: yellow;"></i>')
           $data.html('you cancelled this search')
           clearTimeout($timer)
         }
         if (responce.status == "ERR") {
+          $('#querystatus').html('<i class="fa fa-times-circle-o" style="color: #F55D45;"></i>')
           $data.html('server error occured')
           clearTimeout($timer)
         }
