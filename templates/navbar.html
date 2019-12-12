@@ -1,5 +1,8 @@
 {%load static%}
 <style>
+    body {
+        font-family: 'Quicksand';
+      }
     .navbar-custom {
         background-color: #197DAF;
     }
@@ -59,6 +62,9 @@
     </button>
 
     <div class="collapse navbar-collapse mr-5" id="navbarSupportedContent">
+        <div style="color:white;font-weight: bold;font-size: large;text-shadow: 2px 2px #00ace6;">
+            CRAWLR
+        </div>
         <ul class="navbar-nav mx-auto">
             <li class="nav-item mr-5 acnvb">
                 <a class="nav-link" href="{%url 'homepage'%}" style="color: white;">Home
@@ -77,7 +83,7 @@
                     <span id="profileimage1">
 
                     </span>
-                    <span style="font-size: small;">
+                    <span style="font-size: small;color:white">
                         <span id="fullname1"></span>
                     </span>
                     <span class="caret"></span>
