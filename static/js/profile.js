@@ -18,7 +18,7 @@ $(document).ready(function() {
             '" width="80" height="80"></img>'
         );
         $("#fullname1").html(responce.fullName);
-        $("#fullname2").html(responce.fullName);
+        $("#fullname2").html(star(responce));
         $("#email").html(responce.email);
         $("#about").html(responce.bio);
         $("#searches").html(responce.searches);
@@ -35,3 +35,12 @@ $(document).ready(function() {
     }
   });
 });
+
+function star(responce){
+  var stringstr = responce.fullName
+  if (responce.isPremiumUser) {
+    stringstr += '<i style="color:gold" data-feather="star"></i>';
+    stringstr += '<script>feather.replace()</script>';
+  }
+  return stringstr
+}
