@@ -35,6 +35,7 @@ function postQuestion() {
 }
 
 function postReply() {
+  $('#replyload').html('<div style="text-align:center"><lottie-player src="https://assets3.lottiefiles.com/datafiles/fPx4vaZrul2Fvg9/data.json" mode="normal" speed="1" style="width:100px; height: 100px;" hover loop autoplay></lottie-player></div>')
   var $ques = $('#reply_text');
   $.ajax({
     type: "POST",
